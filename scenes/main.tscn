@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw5btjijrt1h3"]
+
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/simple_fpsplayer/Player.tscn" id="1_m1lv1"]
+[ext_resource type="Script" path="res://scripts/split_screen_manager.gd" id="1_sj21p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_05cot"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_sj21p")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(29.646, 0, 0, 0, 1, 0, 0, 0, 13.9379, 0, -2.73276, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_05cot")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.124519, 0.992217, 0, 0.0720292, -0.00903938, 0.997362, 0.989599, -0.124191, -0.0725941, 0, 5.23737, 0)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 504.0
+offset_bottom = 623.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(504, 623)
+render_target_update_mode = 4
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(574, 322)
+size_2d_override = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Player" parent="GridContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_m1lv1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84127, 0, 0)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(574, 322)
+size_2d_override = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Player" parent="GridContainer/SubViewportContainer2/SubViewport" instance=ExtResource("1_m1lv1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84127, 0, 0)
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="GridContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer3"]
+handle_input_locally = false
+size = Vector2i(574, 322)
+size_2d_override = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Player" parent="GridContainer/SubViewportContainer3/SubViewport" instance=ExtResource("1_m1lv1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84127, 0, 0)
+
+[node name="SubViewportContainer4" type="SubViewportContainer" parent="GridContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer4"]
+handle_input_locally = false
+size = Vector2i(574, 322)
+size_2d_override = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Player" parent="GridContainer/SubViewportContainer4/SubViewport" instance=ExtResource("1_m1lv1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84127, 0, 0)
