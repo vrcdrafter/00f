@@ -72,7 +72,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump_"+player_id) and is_on_floor():
+	if Input.is_action_just_pressed("jump_p"+player_id) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
 	# This just controls acceleration. Don't touch it.
@@ -90,7 +90,7 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("pan_left_p"+player_id, "pan_right_p"+player_id, "move_forward_p"+player_id, "move_backward_p"+player_id)
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
-	if Input.is_key_pressed(KEY_SHIFT) or Input.is_action_pressed("sprint"+player_id):
+	if Input.is_key_pressed(KEY_SHIFT) or Input.is_action_pressed("sprint_p"+player_id):
 		print("sh")
 		direction = direction * SPRINT_MULT
 	else:
