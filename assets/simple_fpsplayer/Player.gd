@@ -24,7 +24,7 @@ func _ready():
 	camera = $rotation_helper/Camera3D
 	rotation_helper = $rotation_helper
 	flashlight = $rotation_helper/Camera3D/flashlight_player
-	
+	player_id = find_id()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -106,5 +106,13 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	
+func find_id() -> String:
+	var host_node_name = get_node("../..")
+
+	var name_string :String = host_node_name.name as String
+	var contoller_id = 1
+	if name_string.contains("2"):
+		contoller_id = "2"
 	
+	return contoller_id
 

@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 			0:
 				# No controllers connected, handle accordingly (e.g., show a message)
 				print("No controllers connected.")
+
 			1:
 				 # One controller connected, duplicate player node once
 				duplicate_player_node(Vector3(0,0,0))
