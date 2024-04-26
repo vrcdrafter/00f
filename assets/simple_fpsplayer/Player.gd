@@ -60,7 +60,7 @@ func _physics_process(delta):
 
 
 	#joystick up down 
-	var look_stick_angle :Vector2 = Input.get_vector("look_left_p1","look_right_p1","look_up_p1","look_down_p1")
+	var look_stick_angle :Vector2 = Input.get_vector("look_left_p"+player_id,"look_right_p"+player_id,"look_up_p"+player_id,"look_down_p"+player_id)
 	joy_y_accum = look_stick_angle.y * Joy_sensativity
 	rotation_helper.rotate_x(joy_y_accum * -1)
 	#joystick left right
@@ -110,7 +110,7 @@ func find_id() -> String:
 	var host_node_name = get_node("../..")
 
 	var name_string :String = host_node_name.name as String
-	var contoller_id = 1
+	var contoller_id = "1"
 	if name_string.contains("2"):
 		contoller_id = "2"
 	
