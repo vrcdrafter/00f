@@ -36,9 +36,8 @@ func _input(event):
 
 		var camera_rot = rotation_helper.rotation
 		camera_rot.x = clampf(camera_rot.x, -1.4, 1.4)
+		print(camera_rot)
 		rotation_helper.rotation = camera_rot
-
-		#self.rotate_y(look_stick_angle.y)
 
 
 	# Release/Grab Mouse for debugging. You can change or replace this.
@@ -58,13 +57,15 @@ func _input(event):
 
 func _physics_process(delta):
 
-
+	if Input.get_connected_joypads().size() > 1:
 	#joystick up down 
-	var look_stick_angle :Vector2 = Input.get_vector("look_left_p"+player_id,"look_right_p"+player_id,"look_up_p"+player_id,"look_down_p"+player_id)
-	joy_y_accum = look_stick_angle.y * Joy_sensativity
-	rotation_helper.rotate_x(joy_y_accum * -1)
-	#joystick left right
-	self.rotate_y(look_stick_angle.x * Joy_sensativity * -1)
+		
+		var look_stick_angle :Vector2 = Input.get_vector("look_left_p"+player_id,"look_right_p"+player_id,"look_up_p"+player_id,"look_down_p"+player_id)
+		#print("look stick angle", look_stick_angle, player_id)
+		joy_y_accum = look_stick_angle.y * Joy_sensativity
+		rotation_helper.rotate_x(joy_y_accum * -1)
+		#joystick left right
+		self.rotate_y(look_stick_angle.x * Joy_sensativity * -1)
 	
 	var moving = false
 	# Add the gravity. Pulls value from project settings.
@@ -84,14 +85,12 @@ func _physics_process(delta):
 		accel = DEACCEL
 		moving = false
 
-
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
 	var input_dir = Input.get_vector("pan_left_p"+player_id, "pan_right_p"+player_id, "move_forward_p"+player_id, "move_backward_p"+player_id)
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
 	if Input.is_key_pressed(KEY_SHIFT) or Input.is_action_pressed("sprint_p"+player_id):
-		print("sh")
 		direction = direction * SPRINT_MULT
 	else:
 		pass
