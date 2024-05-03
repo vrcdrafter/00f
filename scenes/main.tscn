@@ -15,15 +15,6 @@ mesh = SubResource("BoxMesh_05cot")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.124519, 0.992217, 0, 0.0720292, -0.00903938, 0.997362, 0.989599, -0.124191, -0.0725941, 0, 5.23737, 0)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 504.0
-offset_bottom = 623.0
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(504, 623)
-render_target_update_mode = 4
-
 [node name="GridContainer" type="GridContainer" parent="."]
 auto_translate_mode = 1
 anchors_preset = 15

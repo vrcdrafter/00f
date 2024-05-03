@@ -8,7 +8,7 @@ const SPEED = 5.0
 const SPRINT_MULT = 2
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.06
-@export var player_id :String = "1"
+@export var player_id :String = "0"
 
 var joy_y_accum:float = 0
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
@@ -109,9 +109,14 @@ func find_id() -> String:
 	var host_node_name = get_node("../..")
 
 	var name_string :String = host_node_name.name as String
-	var contoller_id = "1"
+	var contoller_id = "null"
+	if name_string == "SubViewportContainer" and not 1 in Input.get_connected_joypads():
+		contoller_id = "0"
+	if name_string.contains("1"):
+		contoller_id = "0"
 	if name_string.contains("2"):
 		contoller_id = "2"
-	
+	if name_string.contains("3"):
+		contoller_id = "3"
 	return contoller_id
 

@@ -6,48 +6,9 @@ var evaluate_controllers :bool = true
 func _ready() -> void:
 	
 	var callable = Callable(self, "act_on_connection")
+	#start initial scene with one
 	
 	Input.joy_connection_changed.connect(callable)
-func _process(delta: float) -> void:
-
-	var controllers_connected :int = check_controller()-1
-	
-	
-	if evaluate_controllers:
-		match controllers_connected:
-			0:
-				# No controllers connected, handle accordingly (e.g., show a message)
-				duplicate_player_node(Vector3(0,0,0))
-				print("No controllers connected.")
-				evaluate_controllers = false
-
-			1:
-				 # One controller connected, duplicate player node once
-				duplicate_player_node(Vector3(0,0,0))
-				print("I have one controller")
-				evaluate_controllers = false
-			2:
-				 # One controller connected, duplicate player node once
-				duplicate_player_node(Vector3(0,0,0))
-				
-				duplicate_player_node(Vector3(1,0,0))
-				print("I have two controllers")
-				evaluate_controllers = false
-			3:
-				 # One controller connected, duplicate player node once
-				duplicate_player_node(Vector3(0,0,0))
-				duplicate_player_node(Vector3(1,0,0))
-				duplicate_player_node(Vector3(2,0,0))
-				evaluate_controllers = false
-			4:
-				 # One controller connected, duplicate player node once
-				duplicate_player_node(Vector3(0,0,0))
-				duplicate_player_node(Vector3(1,0,0))
-				duplicate_player_node(Vector3(2,0,0))
-				duplicate_player_node(Vector3(3,0,0))
-				evaluate_controllers = false
-
-
 
 	
 
@@ -57,13 +18,31 @@ func check_controller() -> int:
 	return all_controllers.size()
 
 
-func duplicate_player_node(pos:Vector3):
+func duplicate_player_node(pos:Vector3): # need optional argument to force name 
 	# Logic to duplicate player node goes here
 	# For example:
 	var new_player_node = preload("res://scenes/player_unit.tscn").instantiate()
 	var player_handle :CharacterBody3D = new_player_node.get_node("SubViewport/Player")
 	player_handle.position = pos
+	
+	# poll node to reload
+	var count = 0 
+	print(get_children())
+	for child in get_node("GridContainer").get_children():
+		if child is SubViewportContainer:
+			count += 1
+	print(count)
+	new_player_node.name = "SubViewportContainer_" + str(count)
 	$GridContainer.add_child(new_player_node)
 
+
 func act_on_connection(_device, _connected):
-	print("hey you connected something, it was ",_device, "its plugged in ",_connected)
+	print("hey you connected something, it was ",_device, " its plugged in ",_connected)
+	
+	if _connected and _device != 1:
+		# add another player
+		duplicate_player_node(Vector3(_device,0,0))
+	if _connected and _device == 1:
+		get_node("GridContainer/SubViewportContainer_0").queue_free()
+		
+		duplicate_player_node(Vector3(_device,0,0))
