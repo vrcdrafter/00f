@@ -19,6 +19,8 @@ var rotation_helper :Node3D
 var dir = Vector3.ZERO
 var flashlight
 var Joy_sensativity :float = 0.05
+var shift_numbers :bool = false
+@onready var top_node_master :Node3D = get_node("/root/Node3D")
 
 func _ready():
 	camera = $rotation_helper/Camera3D
@@ -27,6 +29,9 @@ func _ready():
 	player_id = find_id()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var shifter = Callable(self,"shift_the_numbers")
+	top_node_master.connect("Shift_the_numbers",shifter)
+	
 
 func _input(event):
 	# This section controls your player camera. Sensitivity can be changed.
@@ -56,6 +61,12 @@ func _input(event):
 				flashlight.show()
 
 func _physics_process(delta):
+	
+	# re assign numbers if this goes true number
+	if shift_numbers:
+		print("pleas go into here to re-ases")
+		player_id = find_id()
+		shift_numbers = false
 
 	if Input.get_connected_joypads().size() > 1:
 	#joystick up down 
@@ -107,16 +118,32 @@ func _physics_process(delta):
 	
 func find_id() -> String:
 	var host_node_name = get_node("../..")
-
+	# check the size of controolers 
+	var num_of_controlers :int = Input.get_connected_joypads().size()
+	print("we got this many devices ", num_of_controlers)
 	var name_string :String = host_node_name.name as String
-	var contoller_id = "null"
-	if name_string == "SubViewportContainer" and not 1 in Input.get_connected_joypads():
-		contoller_id = "0"
+	var contoller_id = "0"
+	if name_string.contains("0"):
+		
+		if shift_numbers:
+			contoller_id = "1"
+			print("shifted", shift_numbers)
+		else:
+			print("ent here ", shift_numbers)
+			contoller_id = "0"
 	if name_string.contains("1"):
-		contoller_id = "0"
-	if name_string.contains("2"):
-		contoller_id = "2"
+		if shift_numbers:
+			contoller_id = "2"
+		else:
+			contoller_id = "1"
 	if name_string.contains("3"):
-		contoller_id = "3"
+		if shift_numbers: 
+			contoller_id = "3"
+		else:
+			contoller_id = "2"
 	return contoller_id
+
+func shift_the_numbers():
+	print("please shift numbers")
+	shift_numbers = true
 

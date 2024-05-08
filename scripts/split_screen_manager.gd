@@ -1,6 +1,8 @@
 
 extends Node3D
 var evaluate_controllers :bool = true
+signal Shift_the_numbers
+var shift_numbers :bool = false
 
 
 func _ready() -> void:
@@ -9,7 +11,7 @@ func _ready() -> void:
 	#start initial scene with one
 	
 	Input.joy_connection_changed.connect(callable)
-
+	$Timer.start(1) # this timer determines if the controller device should be incremented , its 0 if the devices are plugged in , else it starts at 1
 	
 
 func check_controller() -> int:
@@ -38,11 +40,16 @@ func duplicate_player_node(pos:Vector3): # need optional argument to force name
 
 func act_on_connection(_device, _connected):
 	print("hey you connected something, it was ",_device, " its plugged in ",_connected)
-	
+	# if more controllerd added after scene started shift number +1 
+
 	if _connected and _device != 1:
 		# add another player
 		duplicate_player_node(Vector3(_device,0,0))
-	if _connected and _device == 1:
-		get_node("GridContainer/SubViewportContainer_0").queue_free()
-		
-		duplicate_player_node(Vector3(_device,0,0))
+	if shift_numbers:
+		print("emitted shift signal ")
+		Shift_the_numbers.emit()
+
+func _on_timer_timeout() -> void:
+	print("out of time increment controller sequence ")
+	shift_numbers = true
+	
