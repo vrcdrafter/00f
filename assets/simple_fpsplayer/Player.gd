@@ -99,7 +99,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
 	var input_dir = Input.get_vector("pan_left_p"+player_id, "pan_right_p"+player_id, "move_forward_p"+player_id, "move_backward_p"+player_id)
-	
+	$AnimationTree.set("parameters/BlendSpace2D/blend_position",input_dir)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
 	if Input.is_key_pressed(KEY_SHIFT) or Input.is_action_pressed("sprint_p"+player_id):
 		direction = direction * SPRINT_MULT
