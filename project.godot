@@ -21,6 +21,10 @@ folder_colors={
 "res://models/": "orange"
 }
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_forward_p0={

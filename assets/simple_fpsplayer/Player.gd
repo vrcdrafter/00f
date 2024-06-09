@@ -68,15 +68,14 @@ func _physics_process(delta):
 		player_id = find_id()
 		shift_numbers = false
 
-	if Input.get_connected_joypads().size() > 1:
 	#joystick up down 
 		
-		var look_stick_angle :Vector2 = Input.get_vector("look_left_p"+player_id,"look_right_p"+player_id,"look_up_p"+player_id,"look_down_p"+player_id)
-		#print("look stick angle", look_stick_angle, player_id)
-		joy_y_accum = look_stick_angle.y * Joy_sensativity
-		rotation_helper.rotate_x(joy_y_accum * -1)
-		#joystick left right
-		self.rotate_y(look_stick_angle.x * Joy_sensativity * -1)
+	var look_stick_angle :Vector2 = Input.get_vector("look_left_p"+player_id,"look_right_p"+player_id,"look_up_p"+player_id,"look_down_p"+player_id)
+	print("look stick angle", look_stick_angle, player_id)
+	joy_y_accum = look_stick_angle.y * Joy_sensativity
+	rotation_helper.rotate_x(joy_y_accum * -1)
+	#joystick left right
+	self.rotate_y(look_stick_angle.x * Joy_sensativity * -1)
 	
 	var moving = false
 	# Add the gravity. Pulls value from project settings.
@@ -146,4 +145,3 @@ func find_id() -> String:
 func shift_the_numbers():
 	print("please shift numbers")
 	shift_numbers = true
-
