@@ -4,6 +4,9 @@ var evaluate_controllers :bool = true
 signal Shift_the_numbers
 var shift_numbers :bool = false
 
+# this script also handles the AI 
+
+
 
 func _ready() -> void:
 	
@@ -13,6 +16,9 @@ func _ready() -> void:
 	Input.joy_connection_changed.connect(callable)
 	$Timer.start(1) # this timer determines if the controller device should be incremented , its 0 if the devices are plugged in , else it starts at 1
 	
+func _physics_process(delta: float) -> void:
+	
+	get_tree().call_group("enemies", "update_target_location", $Marker3D.position )
 
 func check_controller() -> int:
 	var all_controllers :Array = Input.get_connected_joypads()
