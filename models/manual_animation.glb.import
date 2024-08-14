@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://412vu4q8nmm6"
-path="res://.godot/imported/from_mixamo.glb-9fea6981decf85950a866e8beaeed409.scn"
+uid="uid://kd27pwsugu6o"
+path="res://.godot/imported/manual_animation.glb-22ae437152b8e29916eea65090dbc125.scn"
 
 [deps]
 
-source_file="res://scenes/from_mixamo.glb"
-dest_files=["res://.godot/imported/from_mixamo.glb-9fea6981decf85950a866e8beaeed409.scn"]
+source_file="res://models/manual_animation.glb"
+dest_files=["res://.godot/imported/manual_animation.glb-22ae437152b8e29916eea65090dbc125.scn"]
 
 [params]
 
