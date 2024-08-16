@@ -86,6 +86,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump_p"+player_id) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
+	# Handle shoot 
+	if Input.is_action_just_pressed("Shoot_p"+player_id):
+		$AnimationTree.set("parameters/OneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		
 	# This just controls acceleration. Don't touch it.
 	var accel
 	if dir.dot(velocity) > 0:
@@ -102,8 +106,10 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
 	if Input.is_key_pressed(KEY_SHIFT) or Input.is_action_pressed("sprint_p"+player_id):
 		direction = direction * SPRINT_MULT
+		# speed up animations too 
+		$AnimationTree.set("parameters/TimeScale2/scale", 2.0)
 	else:
-		pass
+		$AnimationTree.set("parameters/TimeScale2/scale", 1.0)
 
 	if direction:
 		velocity.x = direction.x * SPEED
